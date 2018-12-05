@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group 'com.wangchg.example'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    maven { url 'http://maven.aliyun.com/nexus/content/repositories/central/' }
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.springframework', name: 'spring-context', version: '4.0.2.RELEASE'
+    compile group: 'org.axonframework', name: 'axon-core', version: '3.4.1'
+    compile group: 'org.axonframework', name: 'axon-spring', version: '3.4.1'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.11.1'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.1'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.1'
+    compile group: 'com.lmax', name: 'disruptor', version: '3.4.2'
+    compileOnly('org.projectlombok:lombok:1.18.4')
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

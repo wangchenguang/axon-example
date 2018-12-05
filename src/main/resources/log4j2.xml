@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- No need to set system property "log4j2.contextSelector" to any value
+     when using <asyncLogger> or <asyncRoot>. -->
+
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <ThresholdFilter level="trace" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout
+                    pattern="%highlight{%d %p %c [%t] %m %ex%n}{FATAL=red, ERROR=red, WARN=yellow, INFO=black, DEBUG=green, TRACE=blue}"/>
+        </Console>
+        <!-- Async Loggers will auto-flush in batches, so switch off immediateFlush. -->
+        <RollingRandomAccessFile name="fileAppender" fileName="./logs/application.log"
+                                 filePattern="./logs/application-%d{MM-dd-yyyy}-%i.log" immediateFlush="false">
+            <PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy min="1" max="4"/>
+        </RollingRandomAccessFile>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO" includeLocation="true">
+            <AppenderRef ref="Console"/>
+        </Root>
+        <!-- pattern layout actually uses location, so we need to include it -->
+        <AsyncLogger name="com.wangchg" level="trace" includeLocation="true"/>
+    </Loggers>
+</Configuration>
